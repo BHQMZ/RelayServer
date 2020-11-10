@@ -6,7 +6,7 @@ namespace RelayServer
     {
         static void Main(string[] args)
         {
-            SocketManager.Instance().open();
+            SocketManager.Instance().Open();
 
             Console.ReadLine();
         }

@@ -11,50 +11,51 @@ namespace RelayServer
     {
         public SocketManager(AddressFamily addressFamily, SocketType socketType, ProtocolType protocolType) : base(addressFamily, socketType, protocolType) { }
 
-        private static SocketManager _SocketManager;
+        private static SocketManager _socketManager;
 
         public  static SocketManager Instance()
         {
-            if(_SocketManager == null)
+            if(_socketManager == null)
             {
-                _SocketManager = new SocketManager(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socketManager = new SocketManager(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             }
-            return _SocketManager;
+            return _socketManager;
         }
 
         private List<Socket> _clientSocket = new List<Socket>();
 
-        public void open()
+        // 开启socket
+        public void Open()
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
-            _SocketManager.Bind(ip);
+            _socketManager.Bind(ip);
 
             // 设置最大连接数
-            _SocketManager.Listen(10);
+            _socketManager.Listen(10);
 
-            Thread thread = new Thread(_listen);
+            Thread thread = new Thread(_Listen);
             thread.IsBackground = true;
             thread.Start();
         }
 
-        private void _listen()
+        private void _Listen()
         {
             Console.WriteLine("开始监听");
             while (true)
             {
                 //开始监听
-                Socket socket = _SocketManager.Accept();
-                Console.WriteLine("有客户端链接");
+                Socket socket = _socketManager.Accept();
+                Console.WriteLine(socket.RemoteEndPoint.ToString() + " 客户端链接\n");
                 //保存客户端
                 _clientSocket.Add(socket);
                 //开始接收消息
-                Thread thread = new Thread(_receiveMessage);
+                Thread thread = new Thread(_ReceiveMessage);
                 thread.IsBackground = true;
                 thread.Start(socket);
             }
         }
 
-        private void _receiveMessage(object obj)
+        private void _ReceiveMessage(object obj)
         {
             Socket socket = (Socket)obj;
             while (true)
@@ -66,28 +67,41 @@ namespace RelayServer
                     //如果Receive返回值为0，则可以默认客户端已断开链接
                     if (length > 0)
                     {
+                        //转发给其他连入的客户端
+                        _Relay(bs);
+
                         Console.WriteLine(socket.RemoteEndPoint.ToString() + ":" + new UTF8Encoding().GetString(bs) + "\n");
+
+                        //Console.WriteLine(socket.RemoteEndPoint.ToString() + ":" + BitConverter.ToUInt32(bs) + "\n");
                     }
                     else
                     {
-                        _clientBreakOff(socket);
+                        _ClientBreakOff(socket);
 
                         break;
                     }
                 }
                 catch
                 {
-                    _clientBreakOff(socket);
+                    _ClientBreakOff(socket);
 
                     break;
                 }
             }
         }
 
-        private void _clientBreakOff(Socket socket)
+        private void _ClientBreakOff(Socket socket)
         {
             _clientSocket.Remove(socket);
             Console.WriteLine(socket.RemoteEndPoint.ToString() + "客户端断开连接\n");
+        }
+
+        private void _Relay(byte[] bs)
+        {
+            _clientSocket.ForEach(socket =>
+            {
+                socket.Send(bs);
+            });
         }
     }
 }
