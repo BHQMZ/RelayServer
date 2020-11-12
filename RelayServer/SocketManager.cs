@@ -27,7 +27,7 @@ namespace RelayServer
         // 开启socket
         public void Open()
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse(GameUtils.GetLocalIP()), 5555);
             _socketManager.Bind(ip);
 
             // 设置最大连接数
