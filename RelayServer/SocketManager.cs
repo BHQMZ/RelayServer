@@ -24,7 +24,10 @@ namespace RelayServer
 
         private List<Socket> _clientSocket = new List<Socket>();
 
-        // 开启socket
+        /// <summary>
+        /// 开启socket
+        /// </summary>
+        /// <returns></returns>
         public void Open()
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse(GameUtils.GetLocalIP()), 5555);
@@ -38,6 +41,7 @@ namespace RelayServer
             thread.Start();
         }
 
+        //监听客户端链接
         private void _Listen()
         {
             Console.WriteLine("开始监听");
@@ -55,6 +59,7 @@ namespace RelayServer
             }
         }
 
+        //监听客户端信息
         private void _ReceiveMessage(object obj)
         {
             Socket socket = (Socket)obj;
