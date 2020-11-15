@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace RelayServer
 {
-    class SocketManager : Socket
+    public class SocketManager : Socket
     {
         public SocketManager(AddressFamily addressFamily, SocketType socketType, ProtocolType protocolType) : base(addressFamily, socketType, protocolType) { }
 

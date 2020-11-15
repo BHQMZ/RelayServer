@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayServer", "RelayServer\RelayServer.csproj", "{07942FAD-8C26-465C-9451-07921B144029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RelayServer", "RelayServer\RelayServer.csproj", "{07942FAD-8C26-465C-9451-07921B144029}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService", "WindowsService\WindowsService.csproj", "{BD01FA80-BBF6-45E3-B68A-0CD416E1A675}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{07942FAD-8C26-465C-9451-07921B144029}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07942FAD-8C26-465C-9451-07921B144029}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07942FAD-8C26-465C-9451-07921B144029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD01FA80-BBF6-45E3-B68A-0CD416E1A675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD01FA80-BBF6-45E3-B68A-0CD416E1A675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD01FA80-BBF6-45E3-B68A-0CD416E1A675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD01FA80-BBF6-45E3-B68A-0CD416E1A675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

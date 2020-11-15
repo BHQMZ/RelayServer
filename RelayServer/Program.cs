@@ -7,7 +7,7 @@ namespace RelayServer
         static void Main(string[] args)
         {
             SocketManager.Instance().Open();
-
+            
             Console.ReadLine();
         }
     }
