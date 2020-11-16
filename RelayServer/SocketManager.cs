@@ -30,8 +30,11 @@ namespace RelayServer
         /// <returns></returns>
         public void Open()
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Parse(GameUtils.GetLocalIP()), 5555);
+            string localIP = GameUtils.GetLocalIP();
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse(localIP), 5555);
             _socketManager.Bind(ip);
+
+            Console.WriteLine("绑定ip：" + localIP + ":5555");
 
             // 设置最大连接数
             _socketManager.Listen(10);
