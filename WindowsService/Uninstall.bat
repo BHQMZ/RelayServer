@@ -1,1 +1,2 @@
-﻿%SystemRoo%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\installutil.exe /u %~p0WindowsService.exe
+net stop GameService
+%~dp0\installutil.exe /u %~dp0\bin\Debug\WindowsService.exe

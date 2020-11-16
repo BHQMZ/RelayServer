@@ -1,3 +1,3 @@
-﻿%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\installutil.exe  %~p0WindowsService.exe
+%~dp0\installutil.exe  %~dp0\bin\Debug\WindowsService.exe
 Net Start GameService
 sc config GameService start= auto
